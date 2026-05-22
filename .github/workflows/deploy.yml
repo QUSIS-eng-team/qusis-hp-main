@@ -1,0 +1,21 @@
+name: Deploy to Lolipop
+
+on:
+  push:
+    branches:
+      - main  # GitHubのブランチ名が「main」の場合。もし「master」ならここを master に書き換えてください
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Sync Files to Lolipop
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_ACCOUNT }}  # あなたが登録した名前に合わせています！
+          password: ${{ secrets.FTP_PASSWORD }}
+          server-dir: ./qusis.jp/  # ロリポップ側のアップロード先フォルダ
