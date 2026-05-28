@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com https://formspree.io; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CONTACT | QUSIS</title>
     <link rel="icon" href="images/favicon.png" type="image/png">
@@ -63,8 +63,8 @@
                         <input type="email" id="email" name="email" placeholder="メールアドレス" required maxlength="100">
                     </div>
                     <div class="form-group">
-                        <label for="phone">電話番号 <span class="required">*</span></label>
-                        <input type="tel" id="phone" name="phone" placeholder="電話番号" required pattern="[0-9\-\+]{10,15}" maxlength="15">
+                        <label for="phone">電話番号（ハイフンなし） <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="09012345678" required pattern="[0-9]{10,11}" maxlength="11">
                     </div>
                     <div class="form-group">
                         <label for="type">お問い合わせ種別 <span class="required">*</span></label>
