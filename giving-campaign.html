@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://script.google.com https://script.googleusercontent.com; script-src 'self' 'unsafe-inline' https://unpkg.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://unpkg.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; frame-ancestors 'none';">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giving Campaign 2026 | QUSIS</title>
+    <meta name="description" content="QUSIS（九大起業部）は学生連合 Giving Campaign 2026 に参加しています。応援投票・寄付でQUSISの活動を応援してください。">
+    <link rel="icon" href="images/favicon.png" type="image/png">
+    <link rel="apple-touch-icon" href="images/favicon.png">
+    <link rel="stylesheet" href="assets/css/style.css?v=2026101303">
+    <link rel="stylesheet" href="assets/css/activity-detail.css">
+    <!-- AOS.js for animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" integrity="sha384-/rJKQnzOkEo+daG0jMjU1IwwY9unxt1NBw3Ef2fmOJ3PW/TfAg2KXVoWwMZQZtw9" crossorigin="anonymous">
+    <style>
+        /* Giving Campaign colors (shared with the header banner) */
+        :root {
+            --color-gc-yellow: #fcb600;
+            --color-gc-blue: #15459e;
+            --color-gc-yellow-light: #fff8e5;
+        }
+        /* Override the site's teal/orange with the campaign colors on this page (the footer CTA keeps the QUSIS design) */
+        .gc-page .section-title,
+        .gc-page .zi-title,
+        .gc-page .zi-text p.lead,
+        .gc-page .zi-cta h2 {
+            color: var(--color-gc-blue);
+        }
+        .gc-page .section-title::after,
+        .gc-page .zi-title::after {
+            background: var(--color-gc-yellow);
+        }
+        .gc-page .section .heat-brush::before {
+            background: rgba(252, 182, 0, 0.35);
+        }
+        .gc-page .zi-cta {
+            background-color: var(--color-gc-yellow-light);
+        }
+        .zi-standard-hero {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), url('images/全体交流会2026OnStage.JPG') !important;
+            background-size: cover;
+            background-position: center;
+        }
+        .gc-hero-label {
+            display: table;
+            margin: 0 auto;
+            background: var(--color-gc-yellow);
+            color: var(--color-gc-blue);
+            font-weight: 700;
+            padding: 6px 20px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            letter-spacing: 0.05em;
+            font-size: 0.95rem;
+        }
+        .gc-hero-copy {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--color-gc-blue);
+            margin-top: 10px;
+        }
+        .gc-period {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 1rem;
+            margin-top: 30px;
+            padding: 16px 32px;
+            background: var(--color-white);
+            border: 2px solid var(--color-gc-blue);
+            border-radius: 8px;
+            color: var(--color-gc-blue);
+            font-weight: 700;
+        }
+        .gc-period-label {
+            font-family: var(--font-en);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+        }
+        .gc-period-date {
+            font-size: 1.3rem;
+        }
+        .gc-btn {
+            display: inline-block;
+            margin-top: 40px;
+            background: var(--color-gc-blue);
+            color: var(--color-white);
+            padding: 1rem 3rem;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            transition: opacity 0.3s ease;
+        }
+        .gc-btn:hover {
+            opacity: 0.8;
+            color: var(--color-white);
+        }
+        .zi-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            display: block;
+        }
+        /* Ways to support */
+        .gc-ways {
+            background-color: var(--color-gc-yellow-light);
+        }
+        .gc-ways-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        .gc-way-card {
+            background: var(--color-white);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-top: 6px solid var(--color-gc-yellow);
+        }
+        .gc-way-card h3 {
+            color: var(--color-gc-blue);
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+        .gc-way-tag {
+            display: inline-block;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-gc-blue);
+            background: rgba(252, 182, 0, 0.2);
+            padding: 2px 12px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+        .gc-way-card p {
+            line-height: 1.8;
+        }
+        /* Steps */
+        .gc-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            counter-reset: gc-step;
+            list-style: none;
+            padding: 0;
+        }
+        .gc-step {
+            position: relative;
+            padding: 30px;
+            border: 2px solid var(--color-gc-yellow);
+            border-radius: 12px;
+            line-height: 1.8;
+        }
+        .gc-step::before {
+            counter-increment: gc-step;
+            content: 'STEP ' counter(gc-step);
+            display: block;
+            font-family: var(--font-en);
+            font-weight: 900;
+            color: var(--color-gc-blue);
+            letter-spacing: 0.1em;
+            margin-bottom: 10px;
+        }
+        .gc-notes {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: #666;
+            line-height: 1.8;
+        }
+        .gc-cta {
+            text-align: center;
+        }
+        .gc-cta p {
+            line-height: 1.8;
+        }
+        /* SNS */
+        /* Follows the white ABOUT section, so keep the top gap small */
+        .gc-sns {
+            padding-top: 0;
+        }
+        .gc-sns-lead {
+            margin-top: -20px;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+        .gc-sns-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .gc-sns-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 30px;
+            background: var(--color-white);
+            border: 2px solid var(--color-gc-yellow);
+            border-radius: 12px;
+            color: var(--color-gc-blue);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gc-sns-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px rgba(21, 69, 158, 0.12);
+            opacity: 1;
+        }
+        .gc-sns-icon {
+            flex-shrink: 0;
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--color-gc-blue);
+            color: var(--color-white);
+        }
+        .gc-sns-icon svg {
+            width: 26px;
+            height: 26px;
+        }
+        /* note icon file is black with built-in padding, so render it white and larger */
+        .gc-sns-icon-img {
+            width: 52px;
+            height: 52px;
+            filter: brightness(0) invert(1);
+        }
+        .gc-sns-name {
+            display: block;
+            font-family: var(--font-en);
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: 0.05em;
+        }
+        .gc-sns-desc {
+            display: block;
+            font-size: 0.85rem;
+            color: #555;
+            margin-top: 4px;
+        }
+        @media (max-width: 992px) {
+            .gc-ways-grid,
+            .gc-sns-grid,
+            .gc-steps {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .gc-hero-copy { font-size: 1.1rem; }
+            .gc-period {
+                flex-direction: column;
+                align-items: center;
+                gap: 0.25rem;
+                padding: 12px 20px;
+            }
+            .gc-period-date { font-size: 1.05rem; }
+            .gc-way-card { padding: 30px; }
+        }
+    </style>
+</head>
+<body class="gc-page">
+    <!-- Header -->
+    <header class="header">
+        <div class="logo"><a href="index.html"><img decoding="async" loading="lazy" src="images/qusis-logo-main.webp" alt="QUSIS"></a></div>
+        <nav class="nav">
+            <ul class="nav-list">
+                <li class="nav-item"><a href="about.html">ABOUT</a></li>
+                <li class="nav-item"><a href="activity.html">ACTIVITY</a></li>
+                <li class="nav-item"><a href="member.html">MEMBER</a></li>
+                <li class="nav-item"><a href="news.html">NEWS</a></li>
+                <li class="nav-item"><a href="contact.html">CONTACT</a></li>
+            </ul>
+            <a href="contact.html" class="mobile-contact-btn">CONTACT</a>
+            <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </nav>
+    </header>
+
+    <main>
+        <!-- HERO SECTION -->
+        <section class="section hero-sub zi-standard-hero">
+            <div class="container" data-aos="fade-up">
+                <span class="gc-hero-label">学生連合 Giving Campaign 2026</span>
+                <h1 class="section-title">Giving Campaign</h1>
+                <p class="gc-hero-copy">QUSISの<span class="heat-brush">熱</span>を、応援してください。</p>
+                <div class="gc-period">
+                    <span class="gc-period-label">PERIOD</span>
+                    <span class="gc-period-date">2026.10.16（金）9:00 〜 10.25（日）21:00</span>
+                </div>
+                <div>
+                    <a href="https://student-union.2026.giving-campaign.jp/groups?id=8083bc59-7ce5-4ede-8d34-18661d02352d" class="gc-btn" target="_blank" rel="noopener noreferrer">QUSISを応援する</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT SECTION -->
+        <section class="section zi-about">
+            <div class="container">
+                <div class="zi-section-header" data-aos="fade-right">
+                    <h2 class="zi-title">ABOUT</h2>
+                </div>
+
+                <div class="zi-content-grid">
+                    <div class="zi-text" data-aos="fade-up">
+                        <p class="lead">Giving Campaignとは</p>
+                        <p>Giving Campaignとは、全国約110大学・3,000団体が参加する国内最大級のオンライン応援イベントです。通常のクラウドファンディングとは違い、「寄付」だけでなく「応援投票」という形でも学生に支援を届けることができます。</p>
+                        <p>QUSISは今年、このキャンペーンに参加しています。「世界中に<span class="heat-brush">熱</span>を持った人材を増やす」というミッションのもと、学生が本気で挑戦し続けられる場をこれからも創り続けるために、皆さまの応援をお願いします。</p>
+                    </div>
+                    <div class="zi-image" data-aos="zoom-in">
+                        <img decoding="async" loading="lazy" src="images/HP使用画像/8.webp" alt="QUSISメンバーの集合写真">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SNS SECTION -->
+        <section class="section gc-sns">
+            <div class="container">
+                <div class="zi-section-header" data-aos="fade-up">
+                    <h2 class="zi-title">SNS</h2>
+                </div>
+                <p class="gc-sns-lead" data-aos="fade-up">キャンペーン期間中の最新情報や、QUSISの日々の活動を発信しています。</p>
+                <div class="gc-sns-grid">
+                    <a href="https://x.com/QUSIS_" class="gc-sns-card" target="_blank" rel="noopener noreferrer" data-aos="fade-up" data-aos-delay="100">
+                        <span class="gc-sns-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        </span>
+                        <span>
+                            <span class="gc-sns-name">X</span>
+                            <span class="gc-sns-desc">@QUSIS_</span>
+                        </span>
+                    </a>
+                    <a href="https://www.instagram.com/qusis2026_" class="gc-sns-card" target="_blank" rel="noopener noreferrer" data-aos="fade-up" data-aos-delay="200">
+                        <span class="gc-sns-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+                        </span>
+                        <span>
+                            <span class="gc-sns-name">Instagram</span>
+                            <span class="gc-sns-desc">@qusis2026_</span>
+                        </span>
+                    </a>
+                    <a href="https://note.com/qusis" class="gc-sns-card" target="_blank" rel="noopener noreferrer" data-aos="fade-up" data-aos-delay="300">
+                        <span class="gc-sns-icon">
+                            <img src="images/note-icon.svg" alt="" class="gc-sns-icon-img">
+                        </span>
+                        <span>
+                            <span class="gc-sns-name">note</span>
+                            <span class="gc-sns-desc">note.com/qusis</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- WAYS TO SUPPORT SECTION -->
+        <section class="section gc-ways">
+            <div class="container">
+                <div class="zi-section-header" data-aos="fade-up">
+                    <h2 class="zi-title">HOW TO SUPPORT</h2>
+                </div>
+                <div class="gc-ways-grid">
+                    <div class="gc-way-card" data-aos="fade-up" data-aos-delay="100">
+                        <h3>応援投票</h3>
+                        <span class="gc-way-tag">無料で参加できます</span>
+                        <p>応援投票を多く集めた団体や、特定の条件を達成した団体には、企業からの協賛金が活動資金として配分されます。費用はかからないので、まずは1票からQUSISを応援してください。</p>
+                    </div>
+                    <div class="gc-way-card" data-aos="fade-up" data-aos-delay="200">
+                        <h3>寄付</h3>
+                        <span class="gc-way-tag">クレジットカード・銀行振込・Apple Pay・PayPayなど</span>
+                        <p>QUSISへの寄付は、大学基金を通じて活動資金として配分されます。いただいたご支援は、メンバーの挑戦を後押しする活動に大切に活用させていただきます。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- STEPS SECTION -->
+        <section class="section">
+            <div class="container">
+                <div class="zi-section-header" data-aos="fade-up">
+                    <h2 class="zi-title">STEPS</h2>
+                </div>
+                <ol class="gc-steps">
+                    <li class="gc-step" data-aos="fade-up" data-aos-delay="100">スクロールして「QUSISを応援する」ボタンを押します。</li>
+                    <li class="gc-step" data-aos="fade-up" data-aos-delay="200">Giving CampaignのQUSISのページが表示されるので、「この団体を応援する」をクリックします。</li>
+                    <li class="gc-step" data-aos="fade-up" data-aos-delay="300">必要情報を入力すれば、応援投票・寄付の完了です。</li>
+                </ol>
+                <p class="gc-notes" data-aos="fade-up">
+                    ※ どなたでも参加できます。<br>
+                    ※ 寄付の税制上の優遇措置は大学によって異なります。詳しくはキャンペーンサイトをご確認ください。<br>
+                    ※ キャンペーンは株式会社Alumnoteが運営しています。
+                </p>
+            </div>
+        </section>
+
+        <!-- CTA SECTION -->
+        <section class="section zi-cta gc-cta">
+            <div class="container" data-aos="fade-up">
+                <div class="zi-section-header center">
+                    <h2 class="zi-title">SUPPORT QUSIS</h2>
+                </div>
+                <p>あなたの1票、1つの応援が、<br>次の挑戦を生む<span class="heat-brush">熱</span>になります。</p>
+                <a href="https://student-union.2026.giving-campaign.jp/groups?id=8083bc59-7ce5-4ede-8d34-18661d02352d" class="gc-btn" target="_blank" rel="noopener noreferrer">QUSISを応援する</a>
+            </div>
+        </section>
+
+        <!-- FOOTER CTA -->
+        <section class="footer-cta">
+            <div class="container">
+                <h2>共に、社会に、<span class="heat-brush">熱</span>を。</h2>
+                <p>QUSISとの共創、取材依頼など、<br>社会を<span class="heat-brush">熱</span>くするあらゆる一歩をお待ちしております。</p>
+                <a href="contact.html" class="cta-btn">CONTACT</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <img decoding="async" loading="lazy" src="images/qusis-logo-main.webp" style="filter: brightness(0) invert(1); width: 120px;" alt="QUSIS">
+                </div>
+                <div class="footer-nav">
+                    <ul>
+                        <li><a href="about.html">ABOUT</a></li>
+                        <li><a href="activity.html">ACTIVITY</a></li>
+                        <li><a href="member.html">MEMBER</a></li>
+                        <li><a href="contact.html">CONTACT</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-links" style="margin-bottom: 10px;">
+                <a href="privacy-policy.html" style="color: #888; font-size: 0.8rem; text-decoration: none;">プライバシーポリシー</a>
+            </div>
+            <div class="copyright">
+                &copy; 2026 QUSIS. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" integrity="sha384-wziAfh6b/qT+3LrqebF9WeK4+J5sehS6FA10J1t3a866kJ/fvU5UwofWnQyzLtwu" crossorigin="anonymous"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 100
+        });
+    </script>
+    <script src="assets/js/script.js?v=2026101303"></script>
+</body>
+</html>

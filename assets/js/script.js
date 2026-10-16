@@ -1,5 +1,78 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Shared elements
+    // --- Giving Campaign Banner ---
+    // To end the campaign, set CAMPAIGN_BANNER.enabled to false
+    const CAMPAIGN_BANNER = {
+        enabled: true,
+        id: 'giving-campaign-2026', // Change this for a new campaign to show the banner again to visitors who closed it
+        text: 'QUSISは Giving Campaign 2026 に参加しています',
+        shortText: 'Giving Campaign 2026 参加中', // Shown on smartphones
+        linkText: '詳細を確認する',
+        url: 'giving-campaign.html' // Campaign page URL (the button is hidden when empty)
+    };
+    const BANNER_CLOSED_KEY = 'campaignBannerClosed';
+
+    const siteHeader = document.querySelector('.header');
+    let isBannerClosed = false;
+    try {
+        // Reloading the page shows the banner again
+        const navEntry = performance.getEntriesByType('navigation')[0];
+        if (navEntry && navEntry.type === 'reload') {
+            localStorage.removeItem(BANNER_CLOSED_KEY);
+        }
+        isBannerClosed = localStorage.getItem(BANNER_CLOSED_KEY) === CAMPAIGN_BANNER.id;
+    } catch (e) {
+        // localStorage unavailable (e.g. privacy mode): always show the banner
+    }
+
+    if (CAMPAIGN_BANNER.enabled && siteHeader && !isBannerClosed) {
+        const banner = document.createElement('div');
+        banner.className = 'campaign-banner';
+
+        const text = document.createElement('span');
+        text.className = 'campaign-banner-text';
+        const fullText = document.createElement('span');
+        fullText.className = 'campaign-banner-text-full';
+        fullText.textContent = CAMPAIGN_BANNER.text;
+        const shortText = document.createElement('span');
+        shortText.className = 'campaign-banner-text-short';
+        shortText.textContent = CAMPAIGN_BANNER.shortText;
+        text.append(fullText, shortText);
+        banner.appendChild(text);
+
+        if (CAMPAIGN_BANNER.url) {
+            const link = document.createElement('a');
+            link.className = 'campaign-banner-link';
+            link.href = CAMPAIGN_BANNER.url;
+            // Open external sites in a new tab
+            if (/^https?:\/\//.test(CAMPAIGN_BANNER.url)) {
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+            }
+            link.textContent = CAMPAIGN_BANNER.linkText;
+            banner.appendChild(link);
+        }
+
+        const closeBtn = document.createElement('button');
+        closeBtn.type = 'button';
+        closeBtn.className = 'campaign-banner-close';
+        closeBtn.setAttribute('aria-label', 'バナーを閉じる');
+        closeBtn.textContent = '×';
+        closeBtn.addEventListener('click', () => {
+            banner.remove();
+            document.body.classList.remove('has-campaign-banner');
+            try {
+                localStorage.setItem(BANNER_CLOSED_KEY, CAMPAIGN_BANNER.id);
+            } catch (e) {
+                // Ignore: the banner just reappears on the next page
+            }
+        });
+        banner.appendChild(closeBtn);
+
+        siteHeader.after(banner);
+        document.body.classList.add('has-campaign-banner');
+    }
+
     // --- Navigation (Hamburger Menu) ---
     const menuToggle = document.getElementById('menu-toggle');
     const nav = document.querySelector('.nav');
@@ -18,15 +91,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 document.body.classList.remove('menu-open');
             });
         });
-    }
-
-    const header = document.querySelector('.header');
-    const isTopPage = document.body.classList.contains('top-page');
-    const heroSection = document.getElementById('hero');
-
-    // Initial Hide for Top Page
-    if (header && isTopPage && window.scrollY < 100) {
-        header.classList.add('hide');
     }
 
     // Intro Logic
@@ -109,33 +173,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 5000); // 5 seconds per slide
         }
     }
-
-    // Header Scroll Logic
-    let lastScroll = 0;
-
-    window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-        
-        if (header && isTopPage && heroSection) {
-            const heroHeight = heroSection.offsetHeight;
-            // Hide header if HERO is more than 50% visible (scroll < 50% of height)
-            if (currentScroll < heroHeight * 0.5) {
-                header.classList.add('hide');
-                lastScroll = currentScroll;
-                return;
-            }
-        }
-
-        // Normal Behavior (or after HERO threshold)
-        if (header) {
-            if (currentScroll > lastScroll && currentScroll > 100) {
-                header.classList.add('hide');
-            } else {
-                header.classList.remove('hide');
-            }
-        }
-        lastScroll = currentScroll;
-    });
 
     // --- Scroll Animations (Intersection Observer) ---
     const fadeElements = document.querySelectorAll('.fade-title, .fade-text, .fade-btn, .activity-item, .news-item, .reveal-up');

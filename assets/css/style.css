@@ -141,8 +141,117 @@ body.menu-open {
   transition: transform var(--trans-fast);
 }
 
-.header.hide {
-  transform: translateY(-100%);
+/* Giving Campaign Banner (inserted below the header by script.js) */
+.campaign-banner {
+  position: fixed;
+  top: 80px;
+  left: 0;
+  width: 100%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0 3rem;
+  background: #fcb600;
+  color: #15459e;
+  font-family: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Noto Sans JP", Meiryo, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  z-index: 999;
+}
+
+.campaign-banner-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.campaign-banner-text-short {
+  display: none;
+}
+
+/* Same shape as the header CONTACT button, in the campaign color */
+.campaign-banner-link {
+  flex-shrink: 0;
+  background: #15459e;
+  color: var(--color-white);
+  padding: 4px 20px;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  transition: opacity 0.3s ease;
+}
+
+.campaign-banner-link:hover {
+  opacity: 0.8;
+  color: var(--color-white);
+}
+
+.campaign-banner-close {
+  position: absolute;
+  top: 50%;
+  right: var(--sp-sm);
+  transform: translateY(-50%);
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  color: #15459e;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.campaign-banner-close:hover {
+  opacity: 0.6;
+}
+
+body.has-campaign-banner {
+  padding-top: 44px;
+}
+
+@media (max-width: 768px) {
+  .campaign-banner {
+    top: 70px;
+    height: 40px;
+    gap: 0.5rem;
+    padding: 0 2.25rem 0 0.5rem;
+    font-size: 0.8rem;
+  }
+
+  .campaign-banner-text-full {
+    display: none;
+  }
+
+  .campaign-banner-text-short {
+    display: inline;
+  }
+
+  .campaign-banner-link {
+    padding: 4px 10px;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+  }
+
+  .campaign-banner-close {
+    right: 0.25rem;
+  }
+
+  body.has-campaign-banner {
+    padding-top: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .campaign-banner {
+    position: sticky;
+  }
+
+  body.has-campaign-banner {
+    padding-top: 0;
+  }
 }
 
 .logo {
